@@ -12,7 +12,7 @@ fcc = pd.read_csv("data/fcc_constructed.csv.gz")
 
 #### Load the ACS data.
 
-acs = pd.read_csv("data/acs_2019.csv.gz")
+acs = pd.read_csv("data/acs_2020.csv.gz")
 
 #### Load Ookla data -- fixed-line.
 
@@ -20,7 +20,7 @@ ookla_agg = pd.read_csv("data/ookla_agg.csv.gz")
 
 #### Load geometry
 
-tracts = gpd.read_file("data/cb_2019_us_tract_500k.zip").to_crs(epsg = 4326)
+tracts = gpd.read_file("data/cb_2021_us_tract_500k.zip").to_crs(epsg = 4326)
 
 tracts["geoid"]  = tracts["GEOID"].astype(int)
 tracts["state"]  = tracts["STATEFP"].astype(int)

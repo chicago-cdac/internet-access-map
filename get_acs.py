@@ -51,10 +51,10 @@ prof_var_dict = {"DP05_0001E"  : "population",
                  "DP02_0068E"  : "n_ba",
                 }
 
-prof_api = "https://api.census.gov/data/2019/acs/acs5/profile"
+prof_api = "https://api.census.gov/data/2020/acs/acs5/profile"
 prof_var = "?get=" + ",".join(prof_var_dict)
 
-raw_api  = "https://api.census.gov/data/2019/acs/acs5"
+raw_api  = "https://api.census.gov/data/2020/acs/acs5"
 raw_var  = "?get=" + ",".join(raw_var_dict)
 
 geo = "&for=tract:*&in=state:{:02d}&in=county:*"
@@ -107,5 +107,5 @@ acs = acs[out_vars]
 acs.reset_index(drop = True, inplace = True)
 acs.sort_values("geoid", inplace = True)
 
-acs.to_csv("data/acs_2019.csv.gz", index  = False)
+acs.to_csv("data/acs_2020.csv.gz", index  = False)
 
