@@ -53,6 +53,7 @@ data_layers = {
 
 
 /// MAPBOX STUFF...
+console.alert("Hello, this is a test");
 
 // define access token
 mapboxgl.accessToken = 'pk.eyJ1IjoibWFyY3dpdGFzZWUiLCJhIjoiY2tkaHljOHNqMDB3dDJ3cGI2dWR2YmpuaSJ9.thA8fs03yFEs88QIdFs2Og';
