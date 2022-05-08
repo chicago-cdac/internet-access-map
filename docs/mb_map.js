@@ -1,4 +1,4 @@
-const colors = ['#440154', '#3A528B', '#20908C', '#5EC961', '#FDE724'];
+const colors = ['#800000', '#b81414', '#d13400', '#ffcd38', '#ffff33'];
 const ncolors = colors.length;
 
 class DataLayer {
@@ -60,7 +60,7 @@ mapboxgl.accessToken = 'pk.eyJ1IjoibWFyY3dpdGFzZWUiLCJhIjoiY2tkaHljOHNqMDB3dDJ3c
 // create map
 const map = new mapboxgl.Map({
   container: 'map', // container id
-  style: 'mapbox://styles/marcwitasee/cl01dk17i000j14ob81c1vt3m', // map style URL from Mapbox Studio
+  style: 'mapbox://styles/marcwitasee/cl2utne3n001915nwzo505ass', // map style URL from Mapbox Studio
   zoom: 9.5,
   center: [-87.672, 41.839],
   minZoom: 5.01,
@@ -241,8 +241,7 @@ map.on('load', () => {
     value_header.innerHTML = "";
 
     const full_screen = document.createElement('a');
-    // TODO: Update href with new web domain for hosting map
-    full_screen.href = "https://saxon.cdac.uchicago.edu/~jsaxon/us_map/";
+    full_screen.href = "https://chicago-cdac.github.io/internet-access-map/";
     full_screen.target = "_blank";
     full_screen.innerHTML = "Full Screen &#x27A1;";
     value_header.appendChild(full_screen);
