@@ -51,10 +51,13 @@ prof_var_dict = {"DP05_0001E"  : "population",
                  "DP02_0068E"  : "n_ba",
                 }
 
-prof_api = "https://api.census.gov/data/2020/acs/acs5/profile"
+print("Querying Census API...\n")
+
+# Revert back to 2019
+prof_api = "https://api.census.gov/data/2019/acs/acs5/profile"
 prof_var = "?get=" + ",".join(prof_var_dict)
 
-raw_api  = "https://api.census.gov/data/2020/acs/acs5"
+raw_api  = "https://api.census.gov/data/2019/acs/acs5"
 raw_var  = "?get=" + ",".join(raw_var_dict)
 
 geo = "&for=tract:*&in=state:{:02d}&in=county:*"
@@ -72,6 +75,7 @@ for f in tqdm(fips):
 prof = pd.concat(prof)
 raw  = pd.concat(raw)
 
+print("Querying completed.\n Processing variables...\n")
 
 for df in [prof, raw]:
 
@@ -80,22 +84,24 @@ for df in [prof, raw]:
 
 acs = prof.merge(raw).reset_index()
 
+acs.rename(columns = prof_var_dict, inplace = True)
+acs.rename(columns = raw_var_dict,  inplace = True)
 
-for v in prof_var_dict:
+for v in prof_var_dict.values():
     
     if "den" in v or "n_" in v:
         acs[v] = acs[v].astype(int)
     else:
         acs[v] = acs[v].astype(float)
 
-for v in raw_var_dict:  acs[v] = acs[v].astype(int)
+for v in raw_var_dict.values():  acs[v] = acs[v].astype(int)
 
-acs.rename(columns = prof_var_dict, inplace = True)
-acs.rename(columns = raw_var_dict,  inplace = True)
 for v in ["black", "hispanic", "ba", "broadband", "computer"]:
     acs["f_" + v] = (acs[v] / 100.).round(3)
 
 acs["log_mhi"] = np.log(acs["mhi"]).round(2)
+
+print("Processing completed. Saving file...\n")
 
 geo_vars  = ['state', 'county', 'tract', 'geoid']
 calc_vars = ['f_broadband', 'f_computer', 'f_ba', 'f_black', 'f_hispanic', 'log_mhi', 'mhi']
@@ -106,6 +112,6 @@ acs = acs[out_vars]
 
 acs.reset_index(drop = True, inplace = True)
 acs.sort_values("geoid", inplace = True)
-
-acs.to_csv("data/acs_2020.csv.gz", index  = False)
-
+print(f"Number of Census Tracts: {acs.geoid.nunique()}\n")
+acs.to_csv("data/acs_2019.csv.gz", index  = False)
+print("Done. File saved.\n")

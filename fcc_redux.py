@@ -38,6 +38,3 @@ for ci, chunk in enumerate(chunkerator):
     print(ci, end = " ", flush = True)
     chunk.to_csv(ofile, mode = "a", compression = "gzip",
                  index = False, header = (ci == 0))
-
-
-
